@@ -1,84 +1,68 @@
 # 🌍 Global Terrorism ML Project
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/) 
-[![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-orange)](https://jupyter.org/) 
-[![License](https://img.shields.io/badge/License-Academic-green)](#license)
-[![Status](https://img.shields.io/badge/Status-Active-success)]()
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-Academic-green)
 
-> **Analyze global terrorism trends** and **predict terrorist group responsibility** using **EDA & Machine Learning** on the [Global Terrorism Database](https://www.start.umd.edu/data-tools/gtd).  
+## 📖 Project Overview
 
----
+This repository presents a **comprehensive Exploratory Data Analysis (EDA)** of the [Global Terrorism Database](https://www.start.umd.edu/data-tools/gtd), covering **289,796 incidents worldwide (1970–2020)**. The project focuses on **data cleaning, temporal and spatial terrorism pattern analysis**, and sets the foundation for **predictive modeling** to attribute incidents to terrorist groups.
 
-## 📑 Table of Contents
-- [Overview](#-project-overview)
-- [Key Insights](#-key-insights)
-- [Tech Stack](#-tech-stack)
-- [EDA Highlights](#-exploratory-data-analysis)
-- [Data Cleaning](#-data-cleaning-pipeline)
-- [Project Structure](#-project-structure)
-- [Future Enhancements](#-future-enhancements)
-- [Author](#-author)
-- [License](#-license)
+This project was developed by **Ayush Gupte (PRN: 22070521120, Batch 2022–26)** as part of an academic Machine Learning module.
 
 ---
 
-## 📌 Project Overview
+## 📊 Dataset Description
 
-- **Dataset:** [Global Terrorism Database](https://www.start.umd.edu/gtd-download)  
-- **Incidents:** 289,796 (1970–2020)  
-- **Original Features:** 135 → **Reduced to 11** (model-ready)  
-- **Goal:**  
-  - Uncover **temporal, geographical, and tactical** terrorism patterns.  
-  - Build a foundation for **predictive modeling** to attribute attacks to terrorist groups.  
+- **Source:** [GTD](https://www.start.umd.edu/data-tools/gtd)  
+- **Timeframe:** 1970–2020  
+- **Records:** 289,796  
+- **Original Features:** 135 → **Reduced to 11 (model-ready)**  
+- **Target Variable:** `GroupName` (responsible terrorist group)  
 
----
-
-## 📊 Key Insights
-
-- **2014:** Peak in global terrorism (ISIL surge).  
-- **Hotspots:** Iraq, Afghanistan, Pakistan dominate incidents.  
-- **Top Groups:** **Taliban & ISIL** lead post-2010.  
-- **Tactics:** **Bombings** are the most frequent; **suicide attacks <5%** but highly impactful.  
-
-![Map Preview](Global_Terrorism_Incident_Map.png)
+**Final Selected Columns:**  
+`Year`, `Month`, `Country`, `Region`, `Latitude`, `Longitude`, `AttackType`, `TargetType`, `WeaponType`, `Suicide`, `GroupName`
 
 ---
 
-## 🛠 Tech Stack
+## 🔍 EDA Methodology
 
-| Category          | Tools/Libs                  |
-|-------------------|-----------------------------|
-| **Language**      | Python 3.9+                 |
-| **Data Processing** | pandas, numpy              |
-| **Visualization** | matplotlib, seaborn, plotly |
-| **Environment**   | Jupyter Notebook            |
+The EDA (in `Main_EDA_3.ipynb`) explores **univariate, bivariate, and multivariate** relationships to uncover key patterns.
 
----
+### **1. Temporal Analysis**
+- Year-wise incident trend (**1970–2020**):  
+  ![Yearly Incidents](Global_Terrorism_Incident_Map.png)
+- **Insight:** Sharp rise in incidents post-2000, **peak in 2014** (ISIL surge).
 
-## 🔍 Exploratory Data Analysis
+### **2. Geographical Hotspots**
+- **Top 10 affected countries:** Iraq, Pakistan, Afghanistan lead.
+- **Heatmaps by region and attack type** reveal dominant methods across continents.
 
-<details>
-<summary>Click to expand</summary>
+### **3. Attack & Group Profiling**
+- **Most common attack type:** **Bombings/Explosions** (twice as frequent as Armed Assaults).  
+- **Suicide Attacks:** <5% of total but highly impactful.  
+- **Top Groups:** **Taliban & ISIL** dominate post-2010.
 
-- **Incidents by Year:** Steady rise post-2000, **peak in 2014**.  
-- **Top Countries:** Iraq, Pakistan, Afghanistan dominate.  
-- **Regional Heatmaps:** Show variation in attack types by region.  
-- **Suicide vs Non-Suicide:** <5% are suicide attacks.  
-- **Interactive Map:** Global distribution of incidents.  
-
-</details>
+### **4. Interactive Visualizations**
+- **Geospatial map:** Explore incidents by location (HTML map in repo: `global_terrorism_map.html`).
 
 ---
 
 ## 🧹 Data Cleaning Pipeline
 
-- **Dropped:** High-missing & irrelevant columns (>20%).  
-- **Selected:** 10 essential features + target (`GroupName`).  
-- **Imputation:** Mean (numeric), Mode (categorical).  
-- **Standardized:** Column names & unknown values.  
-- **Output:** `globalterrorismdb_cleaned.csv`.
+Implemented in `Data_Cleaning_2.ipynb`:
+
+1. **Dropped irrelevant & high-missing (>20%) columns**.  
+2. **Selected 10 features + target** for modeling relevance.  
+3. **Imputation:**  
+   - Mean for numerical (`Latitude`, `Longitude`).  
+   - Mode for categorical (`AttackType`, `WeaponType`).  
+4. **Standardized naming** (`Unknown` → `Unknown_Group`).  
+5. **Saved final dataset:** `globalterrorismdb_cleaned.csv`.
 
 ---
+
 
 ## 📂 Project Structure
 
@@ -97,12 +81,30 @@
 
 ## 🚀 Future Enhancements
 
-- **Model Development:** Implement & tune **Random Forest, XGBoost, Neural Networks** for predicting terrorist groups.  
-- **Feature Engineering:** Derive more insights (e.g., cluster coordinates, temporal group patterns).  
-- **Deployment:** Interactive **Streamlit/Dash** dashboard for real-time insights.  
-- **Explainability:** **SHAP values** for interpreting ML model predictions.
+- **Model Development:** Implement & tune **Random Forest, XGBoost, and Neural Networks** for group prediction.  
+- **Feature Engineering:** Add derived variables (e.g., geospatial clusters, temporal seasonality).  
+- **Deployment:** Build an interactive **Streamlit/Dash** dashboard for real-time insights.  
+- **Model Explainability:** Integrate **SHAP values** for understanding ML decisions.
 
 ---
+
+## 🎯 Key Insights
+
+- **2014:** Peak in terrorism due to ISIL.  
+- **Geographical Hotspots:** Middle East & South Asia dominate post-2000.  
+- **Tactics:** **Bombings** remain the most common method.  
+- **Groups:** Taliban & ISIL lead in recent decades.  
+- **Suicide Attacks:** Rare but disproportionately impactful.
+
+---
+
+## ⚙️ Setup Instructions
+
+### **1. Clone Repository**
+```bash
+git clone https://github.com/AyushGupte-22/Global_Terrorism_ML_Project_120.git
+cd Global_Terrorism_ML_Project_120
+```
 
 ## 👤 Author
 
